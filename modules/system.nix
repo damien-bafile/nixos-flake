@@ -10,14 +10,13 @@
   # Auto upgrade
   system.autoUpgrade = {
     enable = false; # Set to true if you want automatic updates
-    flake = inputs.self.outPath;
+    # flake = inputs.self.outPath;
     flags = [
       "--update-input"
       "nixpkgs"
       "-L" # print build logs
     ];
     dates = "09:00";
-    randomizedDelay = "45min";
   };
   
   # Garbage collection
