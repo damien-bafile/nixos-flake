@@ -16,7 +16,7 @@
     gh        # GitHub CLI tool
     git       # Git version control
     lazygit   # Terminal UI for git
-
+    firefox
     # System utilities
     btop
 
