@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   home.username = "daimyo";
@@ -12,10 +17,11 @@
   home.packages = with pkgs; [
     # Development tools
     warp-terminal
-    gh        # GitHub CLI tool
-    git       # Git version control
-    lazygit   # Terminal UI for git
+    gh # GitHub CLI tool
+    git # Git version control
+    lazygit # Terminal UI for git
     firefox
+    nil # Nix language server
     # System utilities
     btop
 
@@ -25,26 +31,38 @@
   # Enable programs with configuration
   programs.home-manager.enable = true;
 
-  progams.zed-editor = {
+  programs.zed-editor = {
     enable = true;
 
-    extensions = [ "nix" "toml" ];
+    extensions = [
+      "nix"
+      "toml"
+    ];
 
     userSettings = {
-                vim_mode = true;
-            ## tell zed to use direnv and direnv can use a flake.nix enviroment.
-            load_direnv = "shell_hook";
-            base_keymap = "VSCode";
-            theme = {
-                mode = "system";
-                light = "One Light";
-                dark = "One Dark";
-            };
-            show_whitespaces = "all" ;
-            ui_font_size = 16;
-            buffer_font_size = 16;
+      vim_mode = true;
+      ## tell zed to use direnv and direnv can use a flake.nix enviroment.
+      load_direnv = "shell_hook";
+      base_keymap = "VSCode";
+      theme = {
+        mode = "system";
+        light = "One Light";
+        dark = "One Dark";
+      };
+      show_whitespaces = "all";
+      ui_font_size = 16;
+      buffer_font_size = 16;
+
+      # Language server configuration
+      lsp = {
+        nix = {
+          binary = {
+            path = "nil";
+          };
+        };
+      };
     };
-  }
+  };
 
   # Basic neovim configuration
   programs.neovim = {
@@ -59,7 +77,8 @@
       lazy-nvim
     ];
 
-    extraLuaConfig = with pkgs.vimPlugins;
+    extraLuaConfig =
+      with pkgs.vimPlugins;
       # lua
       ''
         require("lazy").setup({

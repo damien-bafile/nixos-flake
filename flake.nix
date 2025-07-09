@@ -12,14 +12,22 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, flake-utils, home-manager }:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      nixos-hardware,
+      flake-utils,
+      home-manager,
+    }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
       };
-    in {
+    in
+    {
       nixosConfigurations = {
         nixos = nixpkgs.lib.nixosSystem {
           inherit system;
@@ -29,15 +37,14 @@
           ];
         };
       };
-      
+
       # Development shell for flake maintenance
       devShells.${system}.default = pkgs.mkShell {
-        packages = with pkgs; [
-          nixos-rebuild
-          home-manager
-          git
+        packages = [
+          pkgs.nixos-rebuild
+          pkgs.home-manager
+          pkgs.git
         ];
       };
     };
 }
-
