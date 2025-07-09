@@ -29,11 +29,19 @@
     in
     {
       nixosConfigurations = {
-        nixos = nixpkgs.lib.nixosSystem {
+        framework = nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = { inherit nixos-hardware home-manager; };
           modules = [
-            ./hosts/nixos
+            ./hosts/framework
+          ];
+        };
+        
+        desktop = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit nixos-hardware home-manager; };
+          modules = [
+            ./hosts/desktop
           ];
         };
       };
