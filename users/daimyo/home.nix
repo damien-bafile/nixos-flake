@@ -20,7 +20,7 @@
     gh # GitHub CLI tool
     git # Git version control
     lazygit # Terminal UI for git
-    firefox
+    firefox 
     nil # Nix language server
     # System utilities
     btop
@@ -37,6 +37,8 @@
     extensions = [
       "nix"
       "toml"
+      "catppuccin"
+      "git-firefly"
     ];
 
     userSettings = {
@@ -46,8 +48,8 @@
       base_keymap = "VSCode";
       theme = {
         mode = "system";
-        light = "One Light";
-        dark = "One Dark";
+        light = "Catppuccin Latte";
+        dark = "Catppuccin Mocha";
       };
       show_whitespaces = "all";
       ui_font_size = 16;
@@ -147,7 +149,7 @@
   programs.git = {
     enable = true;
     userName = "daimyo";
-    userEmail = "your-email@example.com"; # Update this
+    userEmail = "bafile.damien@gmail.com"; # Update this
   };
 
   # Bash configuration
