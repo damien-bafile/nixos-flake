@@ -1,0 +1,16 @@
+# Hardware configuration (should be generated on each system)
+hardware-configuration.nix
+
+# Nix result links
+result
+result-*
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
+*~
+
+# OS specific files
+.DS_Store
+Thumbs.db
