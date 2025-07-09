@@ -1,5 +1,5 @@
 # Hardware configuration (should be generated on each system)
-hardware-configuration.nix
+# hardware-configuration.nix
 
 # Nix result links
 result
