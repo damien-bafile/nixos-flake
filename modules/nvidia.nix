@@ -48,7 +48,7 @@
 
   # Add NVIDIA packages to system packages
   environment.systemPackages = with pkgs; [
-    nvtop
+    nvtopPackages.nvidia
     nvidia-vaapi-driver
     vulkan-loader
     vulkan-validation-layers
@@ -64,6 +64,4 @@
     WLR_NO_HARDWARE_CURSORS = "1";
   };
 
-  # For gaming performance
-  programs.gamemode.enable = true;
 }

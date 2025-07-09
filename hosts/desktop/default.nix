@@ -10,7 +10,6 @@
 {
   imports = [
     ../../hardware-configuration.nix
-    nixos-hardware.nixosModules.nvidia
 
     ../../modules/boot.nix
     ../../modules/desktop.nix

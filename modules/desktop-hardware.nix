@@ -33,7 +33,7 @@
     # Performance monitoring
     htop
     btop
-    nvtop
+    nvtopPackages.nvidia
     
     # Gaming
     lutris
@@ -49,7 +49,7 @@
     smartmontools
     
     # Overclocking/monitoring (if needed)
-    corectrl
+    # corectrl  # This might not be available
   ];
   
   # Enable additional filesystems for gaming
@@ -61,18 +61,12 @@
     SUBSYSTEM=="usb", ATTRS{idVendor}=="*", ATTRS{idProduct}=="*", MODE="0664", GROUP="users"
   '';
   
-  # Enable hardware sensors
-  hardware.sensor.iio.enable = true;
-  
   # Enable bluetooth for gaming controllers
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
   
   # Enable Xbox controller support
-  hardware.xone.enable = true;
-  
-  # Enable additional audio codecs
-  hardware.pulseaudio.support32Bit = true;
+  # hardware.xone.enable = true;  # Requires kernel module
   
   # Enable KVM for virtualization
   virtualisation.libvirtd.enable = true;

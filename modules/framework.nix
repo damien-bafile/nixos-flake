@@ -8,6 +8,9 @@
 {
   # Framework-specific optimizations
   
+  # Disable power-profiles-daemon to avoid conflicts
+  services.power-profiles-daemon.enable = false;
+  
   # Enable TLP for better battery life
   services.tlp = {
     enable = true;
@@ -58,17 +61,11 @@
     extraPackages = with pkgs; [
       intel-media-driver
       intel-vaapi-driver
+      vaapiIntel
+      vaapiVdpau
       libvdpau-va-gl
     ];
   };
-  
-  # Enable hardware video acceleration
-  hardware.graphics.extraPackages = with pkgs; [
-    intel-media-driver
-    vaapiIntel
-    vaapiVdpau
-    libvdpau-va-gl
-  ];
   
   # Backlight control
   programs.light.enable = true;
