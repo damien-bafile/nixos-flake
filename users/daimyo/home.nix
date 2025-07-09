@@ -12,7 +12,6 @@
   home.packages = with pkgs; [
     # Development tools
     warp-terminal
-    zed-editor
     gh        # GitHub CLI tool
     git       # Git version control
     lazygit   # Terminal UI for git
@@ -25,6 +24,27 @@
 
   # Enable programs with configuration
   programs.home-manager.enable = true;
+
+  progams.zed-editor = {
+    enable = true;
+
+    extensions = [ "nix" "toml" ];
+
+    userSettings = {
+                vim_mode = true;
+            ## tell zed to use direnv and direnv can use a flake.nix enviroment.
+            load_direnv = "shell_hook";
+            base_keymap = "VSCode";
+            theme = {
+                mode = "system";
+                light = "One Light";
+                dark = "One Dark";
+            };
+            show_whitespaces = "all" ;
+            ui_font_size = 16;
+            buffer_font_size = 16;
+    };
+  }
 
   # Basic neovim configuration
   programs.neovim = {
