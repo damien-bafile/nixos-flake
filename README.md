@@ -1,66 +1,42 @@
-# NixOS Flake Configuration
+# my-flake
 
-This repository contains a modular NixOS flake configuration with the Cosmic Desktop environment.
+Multi-system Nix flake: desktop (NixOS), framework laptop (NixOS), a
+VirtualBox test VM (NixOS), and a Mac (nix-darwin). Traditional flake
+structure (not flake-parts).
 
-## Structure
+## Before building
 
-```
-/etc/nixos/
-├── flake.nix               # Main flake configuration
-├── flake.lock              # Flake lock file
-├── hardware-configuration.nix  # Auto-generated hardware config
-├── hosts/
-│   └── nixos/
-│       └── default.nix     # Host-specific configuration
-├── modules/
-│   ├── boot.nix            # Boot loader configuration
-│   ├── desktop.nix         # Desktop environment (Cosmic)
-│   ├── networking.nix      # Network configuration
-│   └── system.nix          # System-wide settings
-└── users/
-    └── daimyo/
-        ├── default.nix     # User account configuration
-        └── home.nix        # Home Manager configuration
-```
+Replace `yourname` with your actual Unix username in:
+- systems/desktop.nix
+- systems/framework.nix
+- systems/mac.nix
+- systems/vbox.nix
 
-## Getting Started
+## Build commands
 
-### Prerequisites
-- NixOS installed
-- Nix flakes and the experimental features enabled
-
-### Clone the Repository
 ```bash
-git clone https://github.com/your-username/your-repository.git /etc/nixos
+sudo nixos-rebuild switch --flake .#desktop
+sudo nixos-rebuild switch --flake .#framework
+darwin-rebuild switch --flake .#mac
 ```
 
-### Rebuild System
-```bash
-sudo nixos-rebuild switch --flake /etc/nixos#nixos
-```
+## VirtualBox test VM
 
-### Update Flake Inputs
-```bash
-cd /etc/nixos
-sudo nix flake update
-```
+`systems/vbox.nix` is a guest config for testing this flake inside
+VirtualBox before touching real hardware. It needs a real
+hardware-configuration.nix generated from inside an actual VM — see the
+comment at the top of systems/vbox.nix for the full one-time setup steps.
+systems/vbox-hardware-configuration.nix in this zip is a stub; replace it.
 
-### Enter Development Shell
-```bash
-cd /etc/nixos
-nix develop
-```
+## Known TODO / not yet implemented
 
-## Customization
+Two things were discussed but not yet applied to these files:
 
-- **Add New Hosts**: Create a new directory under `hosts/` and add it to `flake.nix`
-- **Add New Users**: Create a new directory under `users/` and import it in the host configuration
-- **Modify System Settings**: Edit the appropriate module in `modules/`
-- **Customize User Environment**: Edit `users/daimyo/home.nix`
+1. **flake-parts migration** — flake.nix is still the traditional
+   `outputs = { ... }@inputs: { ... }` form, not restructured with
+   flake-parts modules.
+2. **nixvim replacement for Neovim** — modules/config-apps/neovim/default.nix
+   still uses the original LazyVim-bootstrap-via-init.lua approach, not a
+   nixvim-based declarative config replicating your Emacs setup.
 
-## Notes
-
-- The configuration uses NixOS unstable to get the Cosmic desktop environment
-- Home Manager is integrated for user-specific configuration
-- Flatpak is enabled for additional application support
-- The system is configured for a Framework 12th gen Intel laptop
+Ask for either of these to be finished if you still want them.
